@@ -1,12 +1,13 @@
+import { Link } from 'react-router-dom'
 import './HeaderLayout.scss'
 
 export default function HeaderLayout() {
   return (
     <header>
-      <a href="#">
+      <Link to="/">
         <img src="/logo.svg" alt="Logo" />
         <span>Gestion Stock</span>
-      </a>
+      </Link>
     </header>
   )
 }
