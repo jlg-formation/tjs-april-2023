@@ -1,3 +1,5 @@
+import { Outlet } from 'react-router-dom'
+
 export default function BodyLayout() {
-  return <p>BodyLayout works</p>
+  return <Outlet />
 }
