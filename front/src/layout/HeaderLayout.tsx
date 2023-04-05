@@ -1,3 +1,5 @@
+import './HeaderLayout.scss'
+
 export default function HeaderLayout() {
   return (
     <header>
