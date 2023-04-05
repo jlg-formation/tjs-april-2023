@@ -1,4 +1,3 @@
-import './App.css'
 import HeaderLayout from './layout/HeaderLayout'
 
 function App() {
