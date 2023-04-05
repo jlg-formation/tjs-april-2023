@@ -1,3 +1,9 @@
+import style from './FooterLayout.module.scss'
+
 export default function FooterLayout() {
-  return <p>FooterLayout works</p>
+  return (
+    <footer className={style.footer}>
+      <a href="#">Mentions Légales</a>
+    </footer>
+  )
 }
