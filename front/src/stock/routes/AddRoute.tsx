@@ -1,4 +1,6 @@
 import { css } from '@emotion/react'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const AddRoute = () => {
   return (
@@ -17,7 +19,10 @@ const AddRoute = () => {
           <span>Quantité</span>
           <input type="number" />
         </label>
-        <button className="primary">Ajouter</button>
+        <button className="primary">
+          <FontAwesomeIcon icon={faPlus} />
+          <span>Ajouter</span>
+        </button>
       </form>
     </main>
   )
