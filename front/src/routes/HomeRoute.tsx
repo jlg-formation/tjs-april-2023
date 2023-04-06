@@ -14,6 +14,7 @@ const HomeRoute = () => {
 export default HomeRoute
 
 const style = css`
+  flex: 0;
   h1 {
     font-size: 3em;
     text-align: center;

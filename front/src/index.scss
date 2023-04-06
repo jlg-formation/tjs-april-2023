@@ -1,6 +1,8 @@
 @use '../node_modules/normalize.css/normalize.css';
 @use '../node_modules/sanitize.css/sanitize.css';
 
+@use 'scss/main.scss';
+
 body {
   font-family: sans-serif;
 }
