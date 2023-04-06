@@ -7,9 +7,24 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 import { useArticleStore } from '../stores/ArticleStore'
+import { Article } from '../interfaces/Article'
+import { useState } from 'react'
 
 const ListRoute = () => {
   const { articles } = useArticleStore()
+
+  const [selectedArticles, setSelectedArticles] = useState(new Set<Article>())
+
+  const handleSelect = (a: Article) => () => {
+    console.log('select', a)
+    if (selectedArticles.has(a)) {
+      selectedArticles.delete(a)
+      setSelectedArticles(new Set(selectedArticles))
+      return
+    }
+    selectedArticles.add(a)
+    setSelectedArticles(new Set(selectedArticles))
+  }
 
   return (
     <main css={listRouteStyle}>
@@ -36,7 +51,11 @@ const ListRoute = () => {
           </thead>
           <tbody>
             {articles.map((a) => (
-              <tr key={a.id}>
+              <tr
+                key={a.id}
+                onClick={handleSelect(a)}
+                className={selectedArticles.has(a) ? 'selected' : ''}
+              >
                 <td className="name">{a.name}</td>
                 <td className="price">{a.price.toFixed(2)} €</td>
                 <td className="qty">{a.qty}</td>
