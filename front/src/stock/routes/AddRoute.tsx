@@ -1,18 +1,30 @@
 import { css } from '@emotion/react'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { FormEventHandler, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { handleInput } from '../../misc'
+import { useArticleStore } from '../stores/ArticleStore'
 
 const AddRoute = () => {
   const [name, setName] = useState('XXX')
   const [price, setPrice] = useState(1)
   const [qty, setQty] = useState(1)
 
+  const navigate = useNavigate()
+  const { add, refresh } = useArticleStore()
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault()
+    add({ name, price, qty })
+    refresh()
+    navigate('..')
+  }
+
   return (
     <main css={style}>
       <h1>Ajout d'un article</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           <span>Nom</span>
           <input type="text" value={name} onChange={handleInput(setName)} />
@@ -38,8 +50,6 @@ const AddRoute = () => {
           <span>Ajouter</span>
         </button>
       </form>
-      <div>{name}</div>
-      <div>{price}</div>
     </main>
   )
 }

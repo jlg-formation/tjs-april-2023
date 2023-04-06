@@ -12,3 +12,7 @@ export const handleInput =
     }
     setter(+event.target.value as SetStateAction<T>)
   }
+
+export const generateId = () => {
+  return Date.now() + '_' + (Math.random() * 1e12).toFixed(0)
+}
