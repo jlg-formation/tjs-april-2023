@@ -6,6 +6,22 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
+import { Article } from '../interfaces/Article'
+
+const articles: Article[] = [
+  {
+    id: 'a1',
+    name: 'Tournevis',
+    price: 12.23,
+    qty: 120,
+  },
+  {
+    id: 'a2',
+    name: 'Pelle',
+    price: 50,
+    qty: 6,
+  },
+]
 
 const ListRoute = () => {
   return (
@@ -32,26 +48,13 @@ const ListRoute = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="name">Tournevis</td>
-              <td className="price">2.30 €</td>
-              <td className="qty">110</td>
-            </tr>
-            <tr>
-              <td className="name">Marteau</td>
-              <td className="price">5.00 €</td>
-              <td className="qty">23</td>
-            </tr>
-            <tr>
-              <td className="name">Serpe</td>
-              <td className="price">8.00 €</td>
-              <td className="qty">8</td>
-            </tr>
-            <tr>
-              <td className="name">Perceuse</td>
-              <td className="price">45.50 €</td>
-              <td className="qty">10</td>
-            </tr>
+            {articles.map((a) => (
+              <tr key={a.id}>
+                <td className="name">{a.name}</td>
+                <td className="price">{a.price} €</td>
+                <td className="qty">{a.qty}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
