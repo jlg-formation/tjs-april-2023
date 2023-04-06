@@ -1,4 +1,4 @@
-import { css } from '@emotion/react'
+import { listRouteStyle } from './ListRoute.css'
 import {
   faPlus,
   faRotateRight,
@@ -6,26 +6,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
-import { Article } from '../interfaces/Article'
-
-const articles: Article[] = [
-  {
-    id: 'a1',
-    name: 'Tournevis',
-    price: 12.23,
-    qty: 120,
-  },
-  {
-    id: 'a2',
-    name: 'Pelle',
-    price: 50,
-    qty: 6,
-  },
-]
+import { useArticleStore } from '../stores/ArticleStore'
 
 const ListRoute = () => {
+  const { articles } = useArticleStore()
+
   return (
-    <main css={style}>
+    <main css={listRouteStyle}>
       <h1>Liste des articles</h1>
       <div className="content">
         <nav>
@@ -51,7 +38,7 @@ const ListRoute = () => {
             {articles.map((a) => (
               <tr key={a.id}>
                 <td className="name">{a.name}</td>
-                <td className="price">{a.price} €</td>
+                <td className="price">{a.price.toFixed(2)} €</td>
                 <td className="qty">{a.qty}</td>
               </tr>
             ))}
@@ -63,16 +50,3 @@ const ListRoute = () => {
 }
 
 export default ListRoute
-
-const style = css`
-  div.content {
-    display: flex;
-    flex-flow: column;
-    gap: 2em;
-
-    nav {
-      display: flex;
-      gap: 0.3em;
-    }
-  }
-`
