@@ -1,12 +1,13 @@
 import { css } from '@emotion/react'
+import { Link } from 'react-router-dom'
 
 const HomeRoute = () => {
   return (
     <main css={style}>
       <h1>Gérer efficacement votre stock</h1>
-      <a href="#" className="button primary">
+      <Link to="/stock" className="button primary">
         Voir le stock
-      </a>
+      </Link>
     </main>
   )
 }
