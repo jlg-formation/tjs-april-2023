@@ -8,7 +8,9 @@ const ListRoute = () => {
       <div className="content">
         <nav>
           <button>Rafraîchir</button>
-          <Link to="add">Ajouter</Link>
+          <Link to="add" className="button">
+            Ajouter
+          </Link>
           <button>Supprimer</button>
         </nav>
         <table>
@@ -49,4 +51,15 @@ const ListRoute = () => {
 
 export default ListRoute
 
-const style = css``
+const style = css`
+  div.content {
+    display: flex;
+    flex-flow: column;
+    gap: 2em;
+
+    nav {
+      display: flex;
+      gap: 0.3em;
+    }
+  }
+`
