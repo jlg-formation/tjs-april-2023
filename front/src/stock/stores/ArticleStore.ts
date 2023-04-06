@@ -6,9 +6,10 @@ export interface ArticleStore {
   articles: Article[]
   add: (newArticle: NewArticle) => void
   refresh: () => void
+  remove: (ids: string[]) => void
 }
 
-const myArticles: Article[] = [
+let myArticles: Article[] = [
   {
     id: 'a1',
     name: 'Tournevis',
@@ -31,5 +32,8 @@ export const useArticleStore = create<ArticleStore>((set) => ({
   },
   refresh: () => {
     set(() => ({ articles: myArticles }))
+  },
+  remove: (ids) => {
+    myArticles = myArticles.filter((a) => !ids.includes(a.id))
   },
 }))

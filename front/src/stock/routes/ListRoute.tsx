@@ -11,7 +11,7 @@ import { Article } from '../interfaces/Article'
 import { useState } from 'react'
 
 const ListRoute = () => {
-  const { articles } = useArticleStore()
+  const { articles, remove, refresh } = useArticleStore()
 
   const [selectedArticles, setSelectedArticles] = useState(new Set<Article>())
 
@@ -26,6 +26,13 @@ const ListRoute = () => {
     setSelectedArticles(new Set(selectedArticles))
   }
 
+  const handleDelete = () => {
+    console.log('delete')
+    const ids = [...selectedArticles].map((a) => a.id)
+    remove(ids)
+    refresh()
+  }
+
   return (
     <main css={listRouteStyle}>
       <h1>Liste des articles</h1>
@@ -37,9 +44,11 @@ const ListRoute = () => {
           <Link to="add" className="button" title="Ajouter">
             <FontAwesomeIcon icon={faPlus} />
           </Link>
-          <button title="Supprimer">
-            <FontAwesomeIcon icon={faTrashCan} />
-          </button>
+          {selectedArticles.size > 0 && (
+            <button title="Supprimer" onClick={handleDelete}>
+              <FontAwesomeIcon icon={faTrashCan} />
+            </button>
+          )}
         </nav>
         <table>
           <thead>
