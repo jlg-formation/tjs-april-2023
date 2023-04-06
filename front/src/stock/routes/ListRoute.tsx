@@ -1,4 +1,10 @@
 import { css } from '@emotion/react'
+import {
+  faPlus,
+  faRotateRight,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 
 const ListRoute = () => {
@@ -7,11 +13,15 @@ const ListRoute = () => {
       <h1>Liste des articles</h1>
       <div className="content">
         <nav>
-          <button>Rafraîchir</button>
-          <Link to="add" className="button">
-            Ajouter
+          <button title="Rafraîchir">
+            <FontAwesomeIcon icon={faRotateRight} />
+          </button>
+          <Link to="add" className="button" title="Ajouter">
+            <FontAwesomeIcon icon={faPlus} />
           </Link>
-          <button>Supprimer</button>
+          <button title="Supprimer">
+            <FontAwesomeIcon icon={faTrashCan} />
+          </button>
         </nav>
         <table>
           <thead>
