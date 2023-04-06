@@ -15,6 +15,7 @@ export default HomeRoute
 
 const style = css`
   h1 {
-    color: red;
+    font-size: 3em;
+    text-align: center;
   }
 `
