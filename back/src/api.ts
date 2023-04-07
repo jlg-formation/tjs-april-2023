@@ -18,6 +18,10 @@ const articles: Article[] = [
 
 const app = express.Router();
 
+app.use((req, res, next) => {
+  setTimeout(next, 1000);
+});
+
 app.get("/articles", (req, res) => {
   res.json(articles);
 });

@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { Article, NewArticle } from '../interfaces/Article'
 import { generateId, sleep } from '../../misc'
+import { api } from '../api'
 
 export interface ArticleStore {
   articles: Article[]
@@ -32,8 +33,8 @@ export const useArticleStore = create<ArticleStore>((set) => ({
     myArticles.push(article)
   },
   refresh: async () => {
-    await sleep(1000)
-    set(() => ({ articles: myArticles }))
+    const articles = await api.retrieveAll()
+    set(() => ({ articles: articles }))
   },
   remove: async (ids) => {
     await sleep(1000)
