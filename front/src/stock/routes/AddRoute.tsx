@@ -12,18 +12,25 @@ const AddRoute = () => {
   const [qty, setQty] = useState(1)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [errorMsg, setErrorMsg] = useState('Erreur Technique')
+  const [errorMsg, setErrorMsg] = useState('')
 
   const navigate = useNavigate()
   const { add, refresh } = useArticleStore()
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
-    event.preventDefault()
-    setIsSubmitting(true)
-    await add({ name, price, qty })
-    await refresh()
-    navigate('..')
-    setIsSubmitting(false)
+    try {
+      event.preventDefault()
+      setErrorMsg('')
+      setIsSubmitting(true)
+      await add({ name, price, qty })
+      await refresh()
+      navigate('..')
+    } catch (err) {
+      console.log('err: ', err)
+      setErrorMsg('Erreur Technique')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
