@@ -1,0 +1,10 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "moduleResolution": "node"
+  }
+}
