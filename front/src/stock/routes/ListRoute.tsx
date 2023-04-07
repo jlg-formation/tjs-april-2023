@@ -1,19 +1,18 @@
-import { listRouteStyle } from './ListRoute.css'
 import {
-  faCircleNotch,
   faPlus,
   faRotateRight,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Link } from 'react-router-dom'
-import { useArticleStore } from '../stores/ArticleStore'
-import { Article } from '../interfaces/Article'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import AsyncButton from '../../widgets/AsyncButton'
+import { Article } from '../interfaces/Article'
+import { useArticleStore } from '../stores/ArticleStore'
+import { listRouteStyle } from './ListRoute.css'
 
 const ListRoute = () => {
   const { articles, remove, refresh } = useArticleStore()
-  const [isRemoving, setIsRemoving] = useState(false)
 
   const [selectedArticles, setSelectedArticles] = useState(new Set<Article>())
 
@@ -29,12 +28,15 @@ const ListRoute = () => {
   }
 
   const handleDelete = async () => {
-    setIsRemoving(true)
     console.log('delete')
     const ids = [...selectedArticles].map((a) => a.id)
     await remove(ids)
     await refresh()
-    setIsRemoving(false)
+  }
+
+  const handleRefresh = async () => {
+    console.log('refresh')
+    await refresh()
   }
 
   return (
@@ -42,23 +44,20 @@ const ListRoute = () => {
       <h1>Liste des articles</h1>
       <div className="content">
         <nav>
-          <button title="Rafraîchir">
-            <FontAwesomeIcon icon={faRotateRight} />
-          </button>
+          <AsyncButton
+            icon={faRotateRight}
+            label="Rafraîchir"
+            handleClick={handleRefresh}
+          />
           <Link to="add" className="button" title="Ajouter">
             <FontAwesomeIcon icon={faPlus} />
           </Link>
           {selectedArticles.size > 0 && (
-            <button
-              title="Supprimer"
-              onClick={handleDelete}
-              disabled={isRemoving}
-            >
-              <FontAwesomeIcon
-                icon={isRemoving ? faCircleNotch : faTrashCan}
-                spin={isRemoving}
-              />
-            </button>
+            <AsyncButton
+              handleClick={handleDelete}
+              icon={faTrashCan}
+              label="Supprimer"
+            />
           )}
         </nav>
         <table>
