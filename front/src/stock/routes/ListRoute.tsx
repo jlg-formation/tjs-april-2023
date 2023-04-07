@@ -1,5 +1,6 @@
 import { listRouteStyle } from './ListRoute.css'
 import {
+  faCircleNotch,
   faPlus,
   faRotateRight,
   faTrashCan,
@@ -12,6 +13,7 @@ import { useState } from 'react'
 
 const ListRoute = () => {
   const { articles, remove, refresh } = useArticleStore()
+  const [isRemoving, setIsRemoving] = useState(false)
 
   const [selectedArticles, setSelectedArticles] = useState(new Set<Article>())
 
@@ -26,11 +28,13 @@ const ListRoute = () => {
     setSelectedArticles(new Set(selectedArticles))
   }
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    setIsRemoving(true)
     console.log('delete')
     const ids = [...selectedArticles].map((a) => a.id)
-    remove(ids)
-    refresh()
+    await remove(ids)
+    await refresh()
+    setIsRemoving(false)
   }
 
   return (
@@ -45,8 +49,15 @@ const ListRoute = () => {
             <FontAwesomeIcon icon={faPlus} />
           </Link>
           {selectedArticles.size > 0 && (
-            <button title="Supprimer" onClick={handleDelete}>
-              <FontAwesomeIcon icon={faTrashCan} />
+            <button
+              title="Supprimer"
+              onClick={handleDelete}
+              disabled={isRemoving}
+            >
+              <FontAwesomeIcon
+                icon={isRemoving ? faCircleNotch : faTrashCan}
+                spin={isRemoving}
+              />
             </button>
           )}
         </nav>

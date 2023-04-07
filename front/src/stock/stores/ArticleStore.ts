@@ -5,8 +5,8 @@ import { generateId, sleep } from '../../misc'
 export interface ArticleStore {
   articles: Article[]
   add: (newArticle: NewArticle) => Promise<void>
-  refresh: () => void
-  remove: (ids: string[]) => void
+  refresh: () => Promise<void>
+  remove: (ids: string[]) => Promise<void>
 }
 
 let myArticles: Article[] = [
@@ -31,10 +31,12 @@ export const useArticleStore = create<ArticleStore>((set) => ({
     const article = { id: generateId(), ...newArticle }
     myArticles.push(article)
   },
-  refresh: () => {
+  refresh: async () => {
+    await sleep(1000)
     set(() => ({ articles: myArticles }))
   },
-  remove: (ids) => {
+  remove: async (ids) => {
+    await sleep(1000)
     myArticles = myArticles.filter((a) => !ids.includes(a.id))
   },
 }))
