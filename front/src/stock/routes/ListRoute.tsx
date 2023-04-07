@@ -4,7 +4,7 @@ import {
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AsyncButton from '../../widgets/AsyncButton'
 import { Article } from '../interfaces/Article'
@@ -15,6 +15,11 @@ const ListRoute = () => {
   const { articles, remove, refresh } = useArticleStore()
 
   const [selectedArticles, setSelectedArticles] = useState(new Set<Article>())
+
+  useEffect(() => {
+    console.log('start listroute')
+    refresh()
+  }, [])
 
   const handleSelect = (a: Article) => () => {
     console.log('select', a)
