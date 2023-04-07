@@ -12,6 +12,7 @@ const AddRoute = () => {
   const [qty, setQty] = useState(1)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('Erreur Technique')
 
   const navigate = useNavigate()
   const { add, refresh } = useArticleStore()
@@ -49,6 +50,7 @@ const AddRoute = () => {
             onChange={handleInput(setQty, 'number')}
           />
         </label>
+        <div className="error">{errorMsg}</div>
         <button className="primary" disabled={isSubmitting}>
           <FontAwesomeIcon
             icon={isSubmitting ? faCircleNotch : faPlus}
