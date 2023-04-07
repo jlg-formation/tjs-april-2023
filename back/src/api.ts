@@ -10,7 +10,7 @@ const articles: Article[] = [
   },
   {
     id: "a2",
-    name: "Pelle",
+    name: "Marteau",
     price: 50,
     qty: 6,
   },
