@@ -3,11 +3,13 @@ import App from '../App'
 import { stockRouterConfig } from '../stock/routes/routingConfig'
 import HomeRoute from './HomeRoute'
 import LegalRoute from './LegalRoute'
+import ErrorRoute from './ErrorRoute'
 
 export const routerConfig: RouteObject[] = [
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorRoute />,
     children: [
       {
         path: '',
