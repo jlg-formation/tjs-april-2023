@@ -16,6 +16,7 @@ const ListRoute = () => {
   const { articles, remove, refresh } = useArticleStore()
 
   const [selectedArticles, setSelectedArticles] = useState(new Set<Article>())
+  const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
     console.log('start listroute')
@@ -47,6 +48,10 @@ const ListRoute = () => {
     await refresh()
   }
 
+  const resetErrorMsg = () => {
+    setErrorMsg('')
+  }
+
   return (
     <main css={listRouteStyle}>
       <h1>Liste des articles</h1>
@@ -56,6 +61,8 @@ const ListRoute = () => {
             icon={faRotateRight}
             label="Rafraîchir"
             handleClick={handleRefresh}
+            handleError={setErrorMsg}
+            handleStart={resetErrorMsg}
           />
           <Link to="add" className="button" title="Ajouter">
             <FontAwesomeIcon icon={faPlus} />
@@ -65,9 +72,12 @@ const ListRoute = () => {
               handleClick={handleDelete}
               icon={faTrashCan}
               label="Supprimer"
+              handleError={setErrorMsg}
+              handleStart={resetErrorMsg}
             />
           )}
         </nav>
+        <div className="error">{errorMsg}</div>
         <table>
           <thead>
             <tr>

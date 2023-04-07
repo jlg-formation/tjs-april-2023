@@ -4,11 +4,17 @@ export const listRouteStyle = css`
   div.content {
     display: flex;
     flex-flow: column;
-    gap: 2em;
 
     nav {
       display: flex;
       gap: 0.3em;
+    }
+
+    div.error {
+      height: 2em;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
     }
 
     tbody {

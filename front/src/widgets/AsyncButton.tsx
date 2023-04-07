@@ -9,16 +9,29 @@ export default function AsyncButton(props: {
   label: string
   handleClick?: () => Promise<void>
   icon: IconDefinition
+  handleError?: (str: string) => void
+  handleStart?: () => void
 }) {
   const [isRunning, setIsRunning] = useState(false)
 
   const handleClick = async () => {
+    if (props.handleStart) {
+      props.handleStart()
+    }
     if (!props.handleClick) {
       return
     }
-    setIsRunning(true)
-    await props.handleClick()
-    setIsRunning(false)
+    try {
+      setIsRunning(true)
+      await props.handleClick()
+    } catch (err) {
+      console.log('err: ', err)
+      if (props.handleError) {
+        props.handleError('Erreur Technique')
+      }
+    } finally {
+      setIsRunning(false)
+    }
   }
 
   return (
