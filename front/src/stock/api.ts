@@ -24,6 +24,8 @@ class API {
   }
 
   async retrieveAll(): Promise<Article[]> {
+    console.log('retrieve all')
+
     const response = await fetch(url)
     const articles: Article[] = await response.json()
     return articles

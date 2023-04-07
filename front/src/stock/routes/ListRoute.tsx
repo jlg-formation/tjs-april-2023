@@ -1,4 +1,5 @@
 import {
+  faCircleNotch,
   faPlus,
   faRotateRight,
   faTrashCan,
@@ -18,7 +19,9 @@ const ListRoute = () => {
 
   useEffect(() => {
     console.log('start listroute')
-    refresh()
+    if (articles === undefined) {
+      refresh()
+    }
   }, [])
 
   const handleSelect = (a: Article) => () => {
@@ -74,17 +77,28 @@ const ListRoute = () => {
             </tr>
           </thead>
           <tbody>
-            {articles.map((a) => (
-              <tr
-                key={a.id}
-                onClick={handleSelect(a)}
-                className={selectedArticles.has(a) ? 'selected' : ''}
-              >
-                <td className="name">{a.name}</td>
-                <td className="price">{a.price.toFixed(2)} €</td>
-                <td className="qty">{a.qty}</td>
+            {articles === undefined ? (
+              <tr>
+                <td colSpan={3}>
+                  <div className="loading">
+                    <FontAwesomeIcon icon={faCircleNotch} spin={true} />
+                    <span>Chargement...</span>
+                  </div>
+                </td>
               </tr>
-            ))}
+            ) : (
+              articles.map((a) => (
+                <tr
+                  key={a.id}
+                  onClick={handleSelect(a)}
+                  className={selectedArticles.has(a) ? 'selected' : ''}
+                >
+                  <td className="name">{a.name}</td>
+                  <td className="price">{a.price.toFixed(2)} €</td>
+                  <td className="qty">{a.qty}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

@@ -18,4 +18,10 @@ export const listRouteStyle = css`
       }
     }
   }
+
+  div.loading {
+    display: flex;
+    gap: 0.5em;
+    justify-content: center;
+  }
 `
