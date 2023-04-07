@@ -1,10 +1,10 @@
 import { create } from 'zustand'
 import { Article, NewArticle } from '../interfaces/Article'
-import { generateId } from '../../misc'
+import { generateId, sleep } from '../../misc'
 
 export interface ArticleStore {
   articles: Article[]
-  add: (newArticle: NewArticle) => void
+  add: (newArticle: NewArticle) => Promise<void>
   refresh: () => void
   remove: (ids: string[]) => void
 }
@@ -26,7 +26,8 @@ let myArticles: Article[] = [
 
 export const useArticleStore = create<ArticleStore>((set) => ({
   articles: myArticles,
-  add: (newArticle: NewArticle) => {
+  add: async (newArticle: NewArticle) => {
+    await sleep(2000)
     const article = { id: generateId(), ...newArticle }
     myArticles.push(article)
   },

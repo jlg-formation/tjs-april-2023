@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormEventHandler, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -11,14 +11,18 @@ const AddRoute = () => {
   const [price, setPrice] = useState(1)
   const [qty, setQty] = useState(1)
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const navigate = useNavigate()
   const { add, refresh } = useArticleStore()
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
-    add({ name, price, qty })
+    setIsSubmitting(true)
+    await add({ name, price, qty })
     refresh()
     navigate('..')
+    setIsSubmitting(false)
   }
 
   return (
@@ -45,8 +49,11 @@ const AddRoute = () => {
             onChange={handleInput(setQty, 'number')}
           />
         </label>
-        <button className="primary">
-          <FontAwesomeIcon icon={faPlus} />
+        <button className="primary" disabled={isSubmitting}>
+          <FontAwesomeIcon
+            icon={isSubmitting ? faCircleNotch : faPlus}
+            spin={isSubmitting}
+          />
           <span>Ajouter</span>
         </button>
       </form>

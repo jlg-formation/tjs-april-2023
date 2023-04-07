@@ -16,3 +16,9 @@ export const handleInput =
 export const generateId = () => {
   return Date.now() + '_' + (Math.random() * 1e12).toFixed(0)
 }
+
+export const sleep = (time: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time)
+  })
+}
