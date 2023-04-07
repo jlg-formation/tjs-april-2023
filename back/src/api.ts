@@ -1,5 +1,9 @@
-import express from "express";
-import { Article } from "./interfaces/Article";
+import express, { json } from "express";
+import { Article, NewArticle } from "./interfaces/Article";
+
+const generateId = () => {
+  return Date.now() + "_" + (Math.random() * 1e12).toFixed(0);
+};
 
 const articles: Article[] = [
   {
@@ -24,6 +28,15 @@ app.use((req, res, next) => {
 
 app.get("/articles", (req, res) => {
   res.json(articles);
+});
+
+app.use(json());
+
+app.post("/articles", (req, res) => {
+  const newArticles: NewArticle = req.body;
+  const article: Article = { id: generateId(), ...newArticles };
+  articles.push(article);
+  res.status(201).end();
 });
 
 export const api = app;

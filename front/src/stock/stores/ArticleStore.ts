@@ -10,27 +10,12 @@ export interface ArticleStore {
   remove: (ids: string[]) => Promise<void>
 }
 
-let myArticles: Article[] = [
-  {
-    id: 'a1',
-    name: 'Tournevis',
-    price: 12.23,
-    qty: 120,
-  },
-  {
-    id: 'a2',
-    name: 'Pelle',
-    price: 50,
-    qty: 6,
-  },
-]
+let myArticles: Article[] = []
 
 export const useArticleStore = create<ArticleStore>((set) => ({
   articles: myArticles,
   add: async (newArticle: NewArticle) => {
-    await sleep(2000)
-    const article = { id: generateId(), ...newArticle }
-    myArticles.push(article)
+    await api.add(newArticle)
   },
   refresh: async () => {
     const articles = await api.retrieveAll()

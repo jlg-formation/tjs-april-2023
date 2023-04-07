@@ -20,7 +20,7 @@ const AddRoute = () => {
     event.preventDefault()
     setIsSubmitting(true)
     await add({ name, price, qty })
-    refresh()
+    await refresh()
     navigate('..')
     setIsSubmitting(false)
   }
