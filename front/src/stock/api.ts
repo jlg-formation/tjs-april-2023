@@ -13,6 +13,16 @@ class API {
     })
   }
 
+  async remove(ids: string[]) {
+    await fetch(url, {
+      method: 'DELETE',
+      body: JSON.stringify(ids),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
   async retrieveAll(): Promise<Article[]> {
     const response = await fetch(url)
     const articles: Article[] = await response.json()
